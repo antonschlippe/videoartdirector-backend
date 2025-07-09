@@ -31,4 +31,5 @@ app.post("/api/generate", upload.single("image"), async (req, res) => {
     console.error("Runway error:", err);
     res.status(500).json({ error: "Video generation failed" });
   }
+  export default app;
 });
