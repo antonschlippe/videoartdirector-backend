@@ -20,7 +20,7 @@ async function generateVideo(imageInput, promptText) {
         promptImage: imageInput,
         promptText: promptText,
         ratio: '1280:720',
-        duration: 1
+        duration: 5
       })
       .waitForTaskOutput();
 
