@@ -1,4 +1,6 @@
-const generateVideo = require('../runway/generateVideo.js');
+const generateVideoModule = require('../runway/generateVideo.js');
+const generateVideo = generateVideoModule.generateVideo;
+console.log('generateVideo type:', typeof generateVideo);
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
