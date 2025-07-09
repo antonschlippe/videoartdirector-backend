@@ -1,19 +1,7 @@
-res.setHeader('Access-Control-Allow-Origin', '*');git add .
-git commit -m "ny vercel struktur på backend 13"
-git push origin main
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
-if (req.method === 'OPTIONS') { 
-    return res.status(200).end();
-  }
 const formidable = require('formidable');
-const form = formidable({ multiples: true });
-import formidable from 'formidable';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import generateVideo from '../runway/generateVideo.js';
+const fs = require('fs');
+const path = require('path');
+const generateVideo = require('../runway/generateVideo.js');
 
 export const config = {
   api: {
@@ -21,10 +9,9 @@ export const config = {
   },
 };
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = __dirname;
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -62,4 +49,4 @@ export default async function handler(req, res) {
       res.status(500).json({ error: 'Video generation failed' });
     }
   });
-}
+};
