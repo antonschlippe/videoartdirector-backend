@@ -1,3 +1,9 @@
+if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
 const formidable = require('formidable');
 const form = formidable({ multiples: true });
 import fs from "fs";
