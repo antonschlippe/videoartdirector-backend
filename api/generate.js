@@ -2,10 +2,8 @@ import formidable from "formidable";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import cors from "cors";
 import generateVideo from "../runway/generateVideo.js";
 
-// Enable CORS
 export const config = {
   api: {
     bodyParser: false,
@@ -15,24 +13,18 @@ export const config = {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Helper function to handle CORS manually
-function allowCors(handler) {
-  return async (req, res) => {
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
-    res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization");
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization");
 
-    if (req.method === "OPTIONS") {
-      res.status(200).end();
-      return;
-    }
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
 
-    return await handler(req, res);
-  };
-}
-
-const handler = async (req, res) => {
   const form = new formidable.IncomingForm({ multiples: false });
   form.uploadDir = path.join(__dirname, "uploads");
   form.keepExtensions = true;
@@ -58,6 +50,4 @@ const handler = async (req, res) => {
       res.status(500).json({ error: "Video generation failed" });
     }
   });
-};
-
-export default allowCors(handler);
+}
