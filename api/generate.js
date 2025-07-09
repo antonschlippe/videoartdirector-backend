@@ -1,4 +1,6 @@
-res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
+res.setHeader('Access-Control-Allow-Origin', '*');git add .
+git commit -m "ny vercel struktur på backend 13"
+git push origin main
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     
