@@ -1,4 +1,5 @@
-import formidable from "formidable";
+import formidable from 'formidable';
+const form = formidable({ multiples: true });
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,16 +15,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
-  res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai'); // or '*'
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end(); // Handle preflight
+    }
+  
 
   const form = new formidable.IncomingForm({ multiples: false });
   form.uploadDir = path.join(__dirname, "uploads");
