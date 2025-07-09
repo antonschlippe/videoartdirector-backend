@@ -6,7 +6,7 @@ const RunwayML = require('@runwayml/sdk');
  * Generates a video using Runway's image-to-video Gen-4 Turbo model.
  * @param {string} imageInput - A URL pointing to your image.
  * @param {string} promptText - Text prompt for the video generation.
- * @returns {object} The completed task result from Runway.
+ * @returns {object} An object containing the generated video URL.
  */
 async function generateVideo(imageInput, promptText) {
   const client = new RunwayML({

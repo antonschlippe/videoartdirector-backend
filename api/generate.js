@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
 
     const video = await generateVideo(imageBase64, promptText);
     console.log('Runway task result:', video);
-    res.status(200).json({ videoUrl: video });
+    res.status(200).json({ videoUrl: video.videoUrl });
 
   } catch (error) {
     console.error('Error generating video:', error);
