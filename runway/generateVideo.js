@@ -26,7 +26,9 @@ async function generateVideo(imageInput, promptText) {
 
     console.log('Runway video task:', task);
 
-    return task;
+    return {
+      videoUrl: task.output?.video
+    };
   } catch (error) {
     console.error('The video failed to generate.');
     console.error(error);
