@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Form parsing error" });
     }
 
-    const imagePath = files.image[0].filepath;
+    const imagePath = files["image"]?.[0]?.filepath;
     const promptText = fields.promptText[0];
 
     try {
