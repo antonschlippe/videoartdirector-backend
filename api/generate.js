@@ -5,7 +5,9 @@ res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
 if (req.method === 'OPTIONS') { 
     return res.status(200).end();
   }
-import { IncomingForm } from 'formidable';
+const formidable = require('formidable');
+const form = formidable({ multiples: true });
+import formidable from 'formidable';
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -21,33 +23,33 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai'); // or '*'
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
-    if (req.method === 'OPTIONS') {
-      return res.status(200).end(); // Handle preflight
-    }
-  
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai'); // or '*'
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const form = new IncomingForm({ multiples: false });
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end(); // Handle preflight
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
+
+  const form = new formidable.IncomingForm({ multiples: false });
   form.uploadDir = path.join(__dirname, "uploads");
   form.keepExtensions = true;
 
   if (!fs.existsSync(form.uploadDir)) {
     fs.mkdirSync(form.uploadDir);
   }
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-  
+
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("Error parsing form:", err);
       return res.status(500).json({ error: "Form parsing error" });
     }
 
-    const imagePath = files["image"]?.[0]?.filepath;
+    const imagePath = files.image[0].filepath;
     const promptText = fields.promptText[0];
 
     try {
