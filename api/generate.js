@@ -2,9 +2,6 @@ const generateVideoModule = require('../runway/generateVideo.js');
 const generateVideo = generateVideoModule.generateVideo;
 console.log('generateVideo type:', typeof generateVideo);
 
-console.log('Runway task result:', video);
-res.status(200).json({ output: [video.output?.url] });
-
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -45,7 +42,8 @@ module.exports = async function handler(req, res) {
     }
 
     const video = await generateVideo(imageBase64, promptText);
-    res.status(200).json({ output: [video.output.url] });
+    console.log('Runway task result:', video);
+    res.status(200).json({ videoUrl: video });
 
   } catch (error) {
     console.error('Error generating video:', error);
