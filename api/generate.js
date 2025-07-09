@@ -5,8 +5,7 @@ res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
 if (req.method === 'OPTIONS') { 
     return res.status(200).end();
   }
-const formidable = require('formidable');
-const form = formidable({ multiples: true });
+import { IncomingForm } from 'formidable';
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -31,7 +30,7 @@ export default async function handler(req, res) {
     }
   
 
-  const form = new formidable.IncomingForm({ multiples: false });
+  const form = new IncomingForm({ multiples: false });
   form.uploadDir = path.join(__dirname, "uploads");
   form.keepExtensions = true;
 
