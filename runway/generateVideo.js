@@ -1,6 +1,7 @@
 // runway/generateVideo.js
 
-import RunwayML, { TaskFailedError } from '@runwayml/sdk';
+const RunwayML = require('@runwayml/sdk');
+const { TaskFailedError } = require('@runwayml/sdk');
 
 /**
  * Generates a video using Runway's image-to-video Gen-4 Turbo model.
@@ -8,7 +9,7 @@ import RunwayML, { TaskFailedError } from '@runwayml/sdk';
  * @param {string} promptText - Text prompt for the video generation.
  * @returns {object} The completed task result from Runway.
  */
-export default async function generateVideo(imageUrl, promptText) {
+async function generateVideo(imageUrl, promptText) {
   const client = new RunwayML({
     apiKey: process.env.RUNWAY_API_KEY
   });
@@ -37,3 +38,5 @@ export default async function generateVideo(imageUrl, promptText) {
     }
   }
 }
+
+module.exports = { generateVideo };
