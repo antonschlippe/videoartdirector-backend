@@ -1,7 +1,8 @@
-if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
+res.setHeader('Access-Control-Allow-Origin', 'https://www.videoartdirector.ai');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+if (req.method === 'OPTIONS') { 
     return res.status(200).end();
   }
 const formidable = require('formidable');
@@ -37,7 +38,10 @@ export default async function handler(req, res) {
   if (!fs.existsSync(form.uploadDir)) {
     fs.mkdirSync(form.uploadDir);
   }
-
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
+  
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("Error parsing form:", err);
