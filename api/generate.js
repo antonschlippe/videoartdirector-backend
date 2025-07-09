@@ -1,4 +1,4 @@
-import formidable from 'formidable';
+const formidable = require('formidable');
 const form = formidable({ multiples: true });
 import fs from "fs";
 import path from "path";
